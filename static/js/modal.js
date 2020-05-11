@@ -1,9 +1,6 @@
 function init_modal() {
-    let modalContainer = document.createElement("div");
-    document.body.appendChild(modalContainer);
-    modalContainer.classList.add('modal-container');
     let modal = document.createElement('div');
-    modalContainer.appendChild(modal);
+    document.getElementById("modal-container").appendChild(modal);
     modal.classList.add('modal');
     modal.setAttribute('id', 'modal');
     return modal
@@ -45,9 +42,24 @@ async function populateModalSeasonsList(content) {
     document.getElementById('modal').insertAdjacentHTML('afterbegin', outputContent);
     return outputContent
 }
-let modalButton = document.getElementById('modalButton');
-modalButton.addEventListener('click', async (e)=>{
-    let contentURL = await e.target.dataset.url;
-    let outputContent = await populateModalSeasonsList(await insertContentToModal(init_modal(), contentURL));
+function init_season_modal() {
+    let modalButton = document.getElementById('modalButton');
+    modalButton.addEventListener('click', async (e) => {
+        let contentURL = await e.target.dataset.url;
+        let outputContent = await populateModalSeasonsList(await insertContentToModal(init_modal(), contentURL));
+        let modalContainer = document.getElementById("modal-container");
+        modalContainer.classList.add('show-modal');
 
-});
+
+    });
+    window.addEventListener('click', (e)=>{
+        let modalContainer = document.getElementById("modal-container");
+        if (modalContainer == e.target){
+            modalContainer.classList.remove('show-modal');
+            modalContainer.innerHTML=''
+        }
+    })
+
+}
+init_season_modal()
+
