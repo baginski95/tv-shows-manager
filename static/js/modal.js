@@ -5,6 +5,7 @@ function init_modal() {
     let modal = document.createElement('div');
     modalContainer.appendChild(modal);
     modal.classList.add('modal');
+    modal.setAttribute('id', 'modal');
     return modal
 
 }
@@ -17,10 +18,8 @@ async function insertContentToModal(modal, contentURL) {
 }
 
 async function populateModalSeasonsList(content) {
-    let tvShowName = document.getElementsByTagName('nav').firstChild.textContent;
-    let tvShowId = document.getElementById('modalButton').dataset.show - id;
-    console.log(tvShowName);
-    console.log(tvShowId);
+    let tvShowName = document.getElementsByClassName("title text-center")[0].textContent;
+    let tvShowId = document.getElementById('modalButton').getAttribute('data-show-id');
     let outputContent = `
         <table>
                 <thead>
@@ -49,6 +48,6 @@ async function populateModalSeasonsList(content) {
 let modalButton = document.getElementById('modalButton');
 modalButton.addEventListener('click', async (e)=>{
     let contentURL = await e.target.dataset.url;
-    let outputContent = await populateModalSeasonsList(insertContentToModal(init_modal(), contentURL));
+    let outputContent = await populateModalSeasonsList(await insertContentToModal(init_modal(), contentURL));
 
 });
