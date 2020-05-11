@@ -22,13 +22,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1200px;
-    min-width: 800px;
-    min-height: 800px;
+    box-shadow: 0 0 30px rgba(100,100,100,0.5);
 
 }
 .modal-container.show-modal {
+    background: rgba(10,10,10,0.3);
     opacity: 1;
     visibility: visible;
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+
+.modal table tr:nth-child(even) {
+    background: #fff;
+}
+
+.modal table tr:nth-child(odd) {
+    background: black;
+}
+
