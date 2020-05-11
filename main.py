@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request
 from data import queries
+from util import json_response
 
 app = Flask('codecool_series')
 
@@ -31,10 +32,16 @@ def show_given_series(tv_show_id=None):
                            genres=genres, tv_show_id=tv_show_id, tv_show_name=tv_show_name)
 
 
+@app.route('/tv-show/modal/<tv_show_id>')
+@json_response
+def get_seasons_list(tv_show_id=None):
+    return queries.get_seasons_list(tv_show_id)
+
+
 @app.route('/tv-show/<tv_show_id>/<season_id>', methods=["get"])
 def get_season(tv_show_id=None, season_id=None):
-    single_season_details = queries.get_given_season(season_id)
-    tv_show_name = request.args.get()
+    single_season_details = queries.get_given_season(season_id)[0]
+    tv_show_name = str(request.args.get('tv_show_name'))
     season = single_season_details['season_number']
     print(tv_show_name)
     return render_template("tv_show_season.html", season=season, single_season_details=single_season_details,

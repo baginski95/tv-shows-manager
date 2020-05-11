@@ -1,0 +1,13 @@
+Create a new page on a new route, that will show movie details along with seasons list. Make sure link from main page brings you to that page
+
+Add button on page that will trigger popup being shown. Show list of seasons on that popup.
+
+Add validation for show id while requesting list of seasons for particular movie/show. Return empty list for non existing movie and error when id is not numerical.
+
+Create page that will display list of actors who played in more than X movies. The X parameter should be taken from page url constructed as follows ?min=X.
+
+Create form that will allow adding new actors to database. Handle this addition in the best possible manner - do not forget about data validation
+
+Create top-actors route to list the first 20 actors (order by name) from the DB and show all the shows  which they played in - in a column (separated by commas)
+
+Create a page which shows one genres and lists all the shows (title, year, rating) which has this genre

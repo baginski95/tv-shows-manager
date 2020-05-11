@@ -27,7 +27,7 @@
                 </div>
             </div>
              <p><b>homepage:</b>&nbsp;<a href="{{show_details['homepage']}}">CLICK here</a></p>
-            <p><b>trailer:</b>&nbsp;<a href="{{show_details['trailer']}}">CLICK here</a></p>
+        <p><b>trailer:</b>&nbsp;<iframe width="400"  src="{{show_details['trailer'] | replace("watch?v=", "embed/")}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
             <p><b>rating:</b>&nbsp;{{show_details['rating']}}</p>
         <!--
             <div>
@@ -39,7 +39,7 @@
         -->
     </div>
 <div class="card">
-            Seasons
+            <button id="modalButton" data-url="/tv-show/modal/{{ tv_show_id }}" data-show-id="{{ tv_show_id }}" >Seasons</button>
 
             <table>
                 <thead>
@@ -52,7 +52,7 @@
                 <tbody>
                 {%  for season in seasons_details %}
                 <tr>
-                    <td><a href = "/tv-show/{{tv_show_id}}/{{season['id']}}">{{season['title']}}</a></td>
+                    <td><a href = "/tv-show/{{tv_show_id}}/{{season['id']}}?tv_show_name={{ tv_show_name }}">{{season['title']}}</a></td>
                     <td>{{season['overview'] if season['overview']  else " "}}</td>
                     <td class="action-column">
                         <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
@@ -63,6 +63,9 @@
                 </tbody>
             </table>
         </div>
+    <div class="modal-container">
+
+    </div>
 {#<div class="card">#}
 {#            <p>A form example to edit a TV show's episode:</p>#}
 {#            <form action="#" method="post">#}

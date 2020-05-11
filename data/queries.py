@@ -14,7 +14,7 @@ def get_seasons_list(show_id):
 
 
 def get_given_season(season_id):
-    return data_manager.execute_select((f'SELECT * FROM seasons WHERE id = %(id)s;', {'id': season_id}))
+    return data_manager.execute_select(f'SELECT * FROM seasons WHERE id = %(id)s;', {'id': season_id})
 
 
 def get_genres_list(show_id):
