@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 from data import queries
 from util import json_response
 import sys
@@ -73,7 +73,14 @@ def get_episode(tv_show_id=None, season_id=None, episode_id=None):
     return render_template("tv_show_episode.html", season=season,
                            tv_show_name=tv_show_name, tv_show_id=tv_show_id, season_id=season_id,
                            episode_details=episode_details)
-
+@app.route('/add-actor', methods = ["POST" , "GET"])
+def add_actor():
+    if request.method == "GET":
+        return render_template('add_actor.html')
+    elif request.method == "POST":
+        actor_data = dict(request.form)
+        queries.add_actor(actor_data)
+        return redirect('/')
 
 def main():
     app.run(

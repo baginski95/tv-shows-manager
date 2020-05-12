@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="card">
+    <p>Add a new actor</p>
+        <form action="/add-actor" method="post">
+            <p class="form-element">
+                <label class="form-element-label" for="name">Name:</label>
+                <input type="text" name="name" id="name" minlength="1">
+            </p>
+            <p class="form-element">
+                <label class="form-element-label" for="birthday">Birth date:</label>
+                <input type="date" name="birthday" id="birthday" >
+            </p>
+            <p class="form-element">
+                <label class="form-element-label" for="death">Death date:</label>
+                <input type="date" name="death" id="death" >
+            </p>
+            <p class="form-element">
+                <label class="form-element-label" for="biography">Biography:</label>
+                <textarea rows = "5" name="biography" id="biography" min="1"></textarea>
+            </p>
+            <p>
+                <button type = "submit"> Add actor! </button>
+            </p>
+        </form>
+</div>
+{% endblock %}
