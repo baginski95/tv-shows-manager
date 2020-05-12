@@ -1,6 +1,7 @@
 from data import data_manager
 import psycopg2
 import psycopg2.extras
+from psycopg2 import sql
 
 
 
@@ -53,12 +54,16 @@ def get_show_by_genres(genres_id):
 
 
 def get_n_sorted_actors(range, page, sort_by, order):
-    query = f"""select name, birthday, death, biography """ \
-            f"""from actors order by {sort_by} {order} """ \
-            f"""limit %s offset ( (%s - 1) * %s);"""
-    # print(cursor)
-    return data_manager.execute_select(query, (range, page, range,))
+    # query = f"""select name, birthday, death, biography
+    #         from actors
+    #         order by {sort_by} {order}
+    #         limit %s offset ( (%s - 1) * %s);"""
 
-    # query = f'select name, birthday, death, biography ' \
-    #         f'from actors order by %(sort_by)s %(order)s ' \
-    #         f'limit %(range)s offset ( (%(page)s - 1) * %(range)s);'
+    query2 = sql.SQL(f""" select name, birthday, death, biography 
+                from actors
+                order by {sort_by} {order}  
+                limit %s offset ( (%s - 1) * %s);
+                """).format(sort_by=sql.Identifier(sort_by), order=sql.Identifier(order))
+
+    return data_manager.execute_select(query2, (range, page, range,))
+
