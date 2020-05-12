@@ -99,12 +99,14 @@ def get_shows_by_genre(genre=None):
 @app.route('/actors-list/',  methods=["POST", "GET"])
 def show_list_with_n_actors(actor_range=None, page=1, sort_by="name", order="ASC"):
     print('im here')
-    if not actor_range:
+    # if not actor_range:
+    print('if wszedl')
+    actor_range = request.args.get('range')
+    print(actor_range)
+    results = queries.get_n_sorted_actors(actor_range, page, sort_by, order)
 
-        actor_range = request.args.get('range')
-        print(actor_range)
-        results = queries.get_n_sorted_actors(actor_range, page, sort_by, order)
-        render_template('actors_list.html', results=results, actor_range=actor_range, page=page, sort_by=sort_by, order=order)
+    print(results)
+    return render_template('actors_list.html', results=results, actor_range=actor_range, page=page, sort_by=sort_by, order=order)
 
 
 def main():

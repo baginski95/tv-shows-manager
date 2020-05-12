@@ -28,5 +28,6 @@ table tr:nth-child(even) {
 }
 
 table th.action-column {
-    background: rgb(203, 75, 70);
+    /*background: rgb(203, 75, 70);*/
 }
+

@@ -1,17 +1,28 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-            <table style="max-width: 600px; margin: 0 auto">
+            <div class="col-sm">
+               <div class="centre-form">
+                <form >
+                <button name="button-prev" type="submit" class="{{ 'button-prev disabled' if page == 1 else 'button-prev' }}" data-page="{{ page }}"> Previous </button>
+                    </form>
+                    <form action="/1" method="post">
+                <button name="button-next" type="submit" class="{{ 'btn btn-primary disabled' if next_page == None else 'btn btn-primary' }}" data-api="{{ next_page}}" value="{{ next_page }}"> Next </button>
+                </form>
+                   </div>
+            </div>
+
+            <table class="actors_list">
                 <thead>
                 <tr>
-                    <th><a href="/actors-list/{{ page }}/name/{{ order }}">Actor name</a></th>
-                    <th><a href="/actors-list/{{ page }}/birthday/{{ order }}">Actor birthday</a></th>
-                    <th><a href="/actors-list/{{ page }}/death/{{ order }}">Actor deathday</a></th>
-                    <th><a href="/actors-list/{{ page }}/biography/{{ order }}">Biography</a></th>
+                    <th><a href="/actors-list/{{ page }}/name/{{ order }}" style="color: #ffffff" >Actor name</a></th>
+                    <th><a href="/actors-list/{{ page }}/birthday/{{ order }}" style="color: #ffffff" >Actor birthday</a></th>
+                    <th><a href="/actors-list/{{ page }}/death/{{ order }}" style="color: #ffffff" >Actor deathday</a></th>
+                    <th><a href="/actors-list/{{ page }}/biography/{{ order }}" style="color: #ffffff" >Biography</a></th>
                 </tr>
                 </thead>
                 <tbody>
-                {%  for actor in actors_list %}
+                {%  for actor in results %}
 
                 <tr>
                     <td style="text-align: center"> {{actor.name}} </td>
