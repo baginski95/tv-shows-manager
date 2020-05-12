@@ -18,7 +18,8 @@
                     <th><a href="/actors-list/{{ page }}/name/{{ order }}" style="color: #ffffff" >Actor name</a></th>
                     <th><a href="/actors-list/{{ page }}/birthday/{{ order }}" style="color: #ffffff" >Actor birthday</a></th>
                     <th><a href="/actors-list/{{ page }}/death/{{ order }}" style="color: #ffffff" >Actor deathday</a></th>
-                    <th><a href="/actors-list/{{ page }}/biography/{{ order }}" style="color: #ffffff" >Biography</a></th>
+                    <th>Biography</th>
+                    <th>Shows</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                     <td style="text-align: center">{{actor.birthday}}</td>
                     <td style="text-align: center">{{actor.death}}</td>
                     <td style="text-align: center">{{actor.biography}}</td>
+                    <td style="text-align: center">{{actor.shows}}</td>
 
                 </tr>
                 {% endfor %}

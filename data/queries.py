@@ -50,7 +50,8 @@ def get_all_genres():
 
 
 def get_show_by_genres(genres_id):
-    return data_manager.execute_select(f'SELECT title, year, rating FROM shows WHERE shows.')
+    # return data_manager.execute_select(f'SELECT title, year, rating FROM shows WHERE shows.')
+    return None
 
 
 def get_n_sorted_actors(range, page, sort_by, order):
@@ -59,11 +60,27 @@ def get_n_sorted_actors(range, page, sort_by, order):
     #         order by {sort_by} {order}
     #         limit %s offset ( (%s - 1) * %s);"""
 
-    query2 = sql.SQL(f""" select name, birthday, death, biography 
+    query2 = sql.SQL(f""" select name, birthday, death, biography, title 
                 from actors
+                left join show_characters on actors.id = show_characters.actor_id
+                left join shows on show_characters.show_id = shows.id
                 order by {sort_by} {order}  
                 limit %s offset ( (%s - 1) * %s);
                 """).format(sort_by=sql.Identifier(sort_by), order=sql.Identifier(order))
-
+    print(data_manager.execute_select(query2, (range, page, range,)))
     return data_manager.execute_select(query2, (range, page, range,))
 
+
+
+def get_most_rated_shows(current_offset, order_by, order_type):
+    return data_manager.execute_select('''SELECT title, year, runtime, MIN(genres.name) as genre, rating, trailer, homepage
+    FROM shows
+    JOIN show_genres on shows.id = show_genres.show_id
+    JOIN genres ON show_genres.genre_id = genres.id
+    GROUP BY title, year,runtime, rating, trailer, homepage
+    ORDER BY %s %s LIMIT 15 OFFSET %s;''' % (order_by, order_type, current_offset))
+
+
+
+def get_number_of_shows():
+    return data_manager.execute_select("""SELECT COUNT(title) as num FROM shows""");

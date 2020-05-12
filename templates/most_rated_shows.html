@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+            <div class="col-sm">
+               <div class="centre-form">
+                <form >
+                <button name="button-prev" type="submit" class="{{ 'button-prev disabled' if page == 0 else 'button-prev' }}" data-page="{{ page }}"> Previous </button>
+                    </form>
+                    <form action="/1" method="post">
+                <button name="button-next" type="submit" class="{{ 'btn btn-primary disabled' if next_page >= num_of_shows 'btn btn-primary' }}" data-api="{{ num_of_shows }}" value="{{ next_page }}"> Next </button>
+                </form>
+                   </div>
+            </div>
+
+            <table class="actors_list">
+                <thead>
+                <tr>
+                    /tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/title/{{ order }}" style="color: #ffffff" >title</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/year/{{ order }}" style="color: #ffffff" >year</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/runtime/{{ order }}" style="color: #ffffff" >runtime</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/rating/{{ order }}" style="color: #ffffff" >rating</a></th>
+                    <th>Trailer</th>
+                    <th>Homepage</th>
+                    <th>Overview</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for show in shows %}
+
+                <tr>
+                    <td style="text-align: center"> {{show.title}} </td>
+                    <td style="text-align: center">{{show.year}}</td>
+                    <td style="text-align: center">{{show.runtime}}</td>
+                    <td style="text-align: center">{{show.rating}}</td>
+                    <td style="text-align: center">{{show.trailer}}</td>
+                    <td style="text-align: center">{{show.homepage}}</td>
+                    <td style="text-align: center">{{show.overview}}</td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+{% endblock %}
