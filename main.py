@@ -20,11 +20,11 @@ def design():
 @app.route('/tv-show/<tv_show_id>')
 def show_given_series(tv_show_id=None):
 
-    show_details = queries.get_given_show(series_id)
-    seasons_details = queries.get_seasons_list(series_id)
+    show_details = queries.get_given_show(tv_show_id)
+    seasons_details = queries.get_seasons_list(tv_show_id)
     print(seasons_details)
     genres = ''
-    for genre in queries.get_genres_list(series_id):
+    for genre in queries.get_genres_list(tv_show_id):
         genres += genre['name'] + ', '
 
     genres = genres.rstrip(', ')
