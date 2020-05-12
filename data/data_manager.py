@@ -103,3 +103,18 @@ def execute_dml_statement(statement, variables=None):
             except psycopg2.ProgrammingError as pe:
                 pass
     return result
+
+def execute_insert(statement, variables=None):
+    """
+    Execute SELECT statement optionally parameterized
+
+    Example:
+    > execute_select('SELECT %(title)s; FROM shows', variables={'title': 'Codecool'})
+
+    :statement: SELECT statement
+
+    :variables:  optional parameter dict"""
+    result_set = []
+    with establish_connection() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+            cursor.execute(statement, variables)

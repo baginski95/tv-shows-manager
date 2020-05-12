@@ -33,5 +33,5 @@ def query_artists_by_movies_count(min_movies):
     return data_manager.execute_select(f'SELECT name, count(show_id) as "number_of_movies" FROM actors join show_characters on actors.id = show_characters.actor_id group by name having count(show_id) >= %(min_movies)s order by number_of_movies desc;', {'min_movies':min_movies})
 
 def add_actor(actor_date):
-    insert_query = f"INSERT INTO actors ( name, birthday, death, biography) VALUES ( %(name)s, %(birthday)s, IF (%(death)s = '', null, %(death)s), %(biography)s);"
-    data_manager.execute_select(insert_query, actor_date)
+    insert_query = f"INSERT INTO actors ( name, birthday, death, biography) VALUES ( %(name)s, %(birthday)s, %(death)s , %(biography)s);"
+    data_manager.execute_insert(insert_query, actor_date)

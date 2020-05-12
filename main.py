@@ -79,6 +79,9 @@ def add_actor():
         return render_template('add_actor.html')
     elif request.method == "POST":
         actor_data = dict(request.form)
+        if actor_data["death"] == "":
+            actor_data["death"] = None
+            print(actor_data)
         queries.add_actor(actor_data)
         return redirect('/')
 
