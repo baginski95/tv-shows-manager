@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+            <table style="max-width: 600px; margin: 0 auto">
+                <thead>
+                <tr>
+                    <th><a href="/actors-list/{{ page }}/name/{{ order }}">Actor name</a></th>
+                    <th><a href="/actors-list/{{ page }}/birthday/{{ order }}">Actor birthday</a></th>
+                    <th><a href="/actors-list/{{ page }}/death/{{ order }}">Actor deathday</a></th>
+                    <th><a href="/actors-list/{{ page }}/biography/{{ order }}">Biography</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for actor in actors_list %}
+
+                <tr>
+                    <td style="text-align: center"> {{actor.name}} </td>
+                    <td style="text-align: center">{{actor.birthday}}</td>
+                    <td style="text-align: center">{{actor.death}}</td>
+                    <td style="text-align: center">{{actor.biography}}</td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+{% endblock %}

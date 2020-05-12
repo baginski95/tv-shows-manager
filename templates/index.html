@@ -73,13 +73,31 @@
         <option value = "{{  genre['name']}}" > {{ genre['name'] }}</option>
     {% endfor %}
 </select>
-    <a href = '/{{ genre['name'] }}'>
+{#    <a href = '/{{ genre['name'] }}'>#}
     <input type="submit" value="Submit">
         </a>
     </from>
 
 
     </div>
+   <div class = "card">
+       <label for="actors_list">List actors by selected number:</label>
+<form action = "/actors-list" method = "GET">
+<select name="range" id="actors_list">
+
+        <option value = "20" > 20 </option>
+        <option value = "50" > 50 </option>
+        <option value = "100" > 100 </option>
+
+</select>
+{#    <a href = '/{{ genre['name'] }}'>#}
+    <input type="submit" value="Submit">
+        </a>
+    </form>
+
+
+    </div>
+
     <div class="card">
                 <form action="/artists/min-movies" method="get">
 <label for="artistButton">Search actors by number of movies they played</label>

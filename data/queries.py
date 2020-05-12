@@ -28,16 +28,29 @@ def get_given_episode(episode_id):
         f'SELECT * FROM episodes WHERE id = %(id)s;',
         {"id": episode_id})
 
+
 def query_artists_by_movies_count(min_movies):
     # print(data_manager.execute_select(f'SELECT name, count(show_id) as "number_of_movies" FROM actors join show_characters on actors.id = show_characters.actor_id group by name having count(show_id) > %(min_movies)s order by number_of_movies desc;', {'min_movies':min_movies}))
-    return data_manager.execute_select(f'SELECT name, count(show_id) as "number_of_movies" FROM actors join show_characters on actors.id = show_characters.actor_id group by name having count(show_id) >= %(min_movies)s order by number_of_movies desc;', {'min_movies':min_movies})
+    return data_manager.execute_select(
+        f'SELECT name, count(show_id) as "number_of_movies" FROM actors join show_characters on actors.id = show_characters.actor_id group by name having count(show_id) >= %(min_movies)s order by number_of_movies desc;',
+        {'min_movies': min_movies})
+
 
 def add_actor(actor_date):
     insert_query = f"INSERT INTO actors ( name, birthday, death, biography) VALUES ( %(name)s, %(birthday)s, %(death)s , %(biography)s);"
     data_manager.execute_insert(insert_query, actor_date)
 
+
 def get_all_genres():
     return data_manager.execute_select(f'SELECT name FROM genres;')
 
+
 def get_show_by_genres(genres_id):
     return data_manager.execute_select(f'SELECT title, year, rating FROM shows WHERE shows.')
+
+
+def get_n_sorted_actors(range, page, sort_by, order):
+    query = f'select name, birthday, death, biography ' \
+            f'from actors order by %(sort_by)s %(order)s ' \
+            f'limit %(range)s offset ( (%(page)s - 1) * %(range)s);'
+    return data_manager.execute_select(query, {"range": range, "page": page, "sort_by": sort_by, "order": order})

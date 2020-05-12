@@ -20,7 +20,6 @@ def design():
 
 @app.route('/tv-show/<tv_show_id>')
 def show_given_series(tv_show_id=None):
-
     show_details = queries.get_given_show(tv_show_id)
     seasons_details = queries.get_seasons_list(tv_show_id)
     print(seasons_details)
@@ -48,6 +47,7 @@ def get_seasons_list(tv_show_id=None):
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
+
 @app.route('/artists/min-movies', methods=['get'])
 def get_artists_by_movies_count():
     min_movies = request.args.get("min")
@@ -55,9 +55,9 @@ def get_artists_by_movies_count():
     artists_by_movies_count = queries.query_artists_by_movies_count(min_movies)
     return render_template('artist.html', artists_list=artists_by_movies_count)
 
+
 @app.route('/tv-show/<tv_show_id>/<season_id>', methods=["get"])
 def get_season(tv_show_id=None, season_id=None):
-
     single_season_details = queries.get_given_season(season_id)[0]
     tv_show_name = str(request.args.get('tv_show_name'))
     season = single_season_details['season_number']
@@ -74,7 +74,9 @@ def get_episode(tv_show_id=None, season_id=None, episode_id=None):
     return render_template("tv_show_episode.html", season=season,
                            tv_show_name=tv_show_name, tv_show_id=tv_show_id, season_id=season_id,
                            episode_details=episode_details)
-@app.route('/add-actor', methods = ["POST" , "GET"])
+
+
+@app.route('/add-actor', methods=["POST", "GET"])
 def add_actor():
     if request.method == "GET":
         return render_template('add_actor.html')
@@ -86,10 +88,23 @@ def add_actor():
         queries.add_actor(actor_data)
         return redirect('/')
 
+
 @app.route('/<genre>')
-def get_shows_by_genre(genre = None):
+def get_shows_by_genre(genre=None):
     shows_by_genre = queries.get_show_by_genres(genre)
     return render_template('artist.html')
+
+
+@app.route('/actors-list/<actor_range>/<page>/<sort_by>/<order>', methods=["POST", "GET"])
+@app.route('/actors-list/',  methods=["POST", "GET"])
+def show_list_with_n_actors(actor_range=None, page=1, sort_by="name", order="ASC"):
+    print('im here')
+    if not actor_range:
+
+        actor_range = request.args.get('range')
+        print(actor_range)
+        results = queries.get_n_sorted_actors(actor_range, page, sort_by, order)
+        render_template('actors_list.html', results=results, actor_range=actor_range, page=page, sort_by=sort_by, order=order)
 
 
 def main():
