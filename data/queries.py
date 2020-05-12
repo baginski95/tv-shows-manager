@@ -35,3 +35,9 @@ def query_artists_by_movies_count(min_movies):
 def add_actor(actor_date):
     insert_query = f"INSERT INTO actors ( name, birthday, death, biography) VALUES ( %(name)s, %(birthday)s, %(death)s , %(biography)s);"
     data_manager.execute_insert(insert_query, actor_date)
+
+def get_all_genres():
+    return data_manager.execute_select(f'SELECT name FROM genres;')
+
+def get_show_by_genres(genres_id):
+    return data_manager.execute_select(f'SELECT title, year, rating FROM shows WHERE shows.')

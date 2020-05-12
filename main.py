@@ -8,8 +8,9 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
+    genres = queries.get_all_genres()
     shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return render_template('index.html', shows=shows, genres=genres)
 
 
 @app.route('/design')
@@ -84,6 +85,12 @@ def add_actor():
             print(actor_data)
         queries.add_actor(actor_data)
         return redirect('/')
+
+@app.route('/<genre>')
+def get_shows_by_genre(genre = None):
+    shows_by_genre = queries.get_show_by_genres(genre)
+    return render_template('artist.html')
+
 
 def main():
     app.run(
