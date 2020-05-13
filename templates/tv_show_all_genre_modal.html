@@ -18,7 +18,7 @@
                 {%  for show in shows %}
 
                 <tr>
-                    <a id = "modalButton" data-show="{{ show.id }}" href="/tv-show-all/modal-genres/{{ show.id }}"> <td style="text-align: center"> {{show.title}} </td></a>
+                    <a class = "modalLink" data-show="{{ show.id }}" href="/tv-show-all/modal-genres/{{ show.id }}"> <td style="text-align: center"> {{show.title}} </td></a>
                     <td style="text-align: center">{{show.year}}</td>
                     <td style="text-align: center">{{show.runtime}}</td>
                     <td style="text-align: center">{{show.rating}}</td>

@@ -56,7 +56,7 @@ def show_given_series(tv_show_id=None):
                            genres=genres, tv_show_id=tv_show_id, tv_show_name=tv_show_name)
 
 
-@app.route('/tv-show-all/modal-genres/<tv_show_id>')
+@app.route('/tv-show-all/modal-genres/<tv_show_id>', methods=['GET'])
 @json_response
 def get_genres_for_show(tv_show_id):
     print('elo')
