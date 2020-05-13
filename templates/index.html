@@ -31,6 +31,8 @@
 
 </head>
 
+
+{## UPPER ELEMENTS | HEADER#}
 <body>
 <div id="body-wrapper">
     <header class="clearfix">
@@ -44,8 +46,10 @@
         </div>
     </header>
 
-<button id="artistButton" data-url="/tv-show/modal/{{ tv_show_id }}" data-show-id="{{ tv_show_id }}" >Seasons</button>
+{#<button id="artistButton" data-url="/tv-show/modal/{{ tv_show_id }}" data-show-id="{{ tv_show_id }}" >Seasons</button>#}
 
+
+{# WELCOME CARD#}
     <section>
         <h1 class="title text-center">Welcome page</h1>
         <div class="card">
@@ -60,63 +64,61 @@
 
         </div>
 
+
+{#MOST RATED SHOWS#}
     <div class = "card">
         <a href="/tv-show/most-rated-shows/0/rating/ASC">
             <button>MOST RATED SHOWS</button>
         </a>
     </div>
 
-    <div class = "card">
-            <button>Add actor</button>
-        </a>
-    </div>
-    <div class = "card">
+
+{##ADD ACTOR#}
     <div class = "card">
         <a href="/add-actor">
             <button>Add actor</button>
         </a>
     </div>
+
+
+{##GET SHOWS BY GENRE#}
     <div class = "card">
-
         <label for="genre">Choose a genres:</label>
-<from action = "/genres" method = "GET">
-<select id="genres">
-    {% for genre in genres %}
-        <option value = "{{  genre['name']}}" > {{ genre['name'] }}</option>
-    {% endfor %}
-</select>
-{#    <a href = '/{{ genre['name'] }}'>#}
-    <input type="submit" value="Submit">
-        </a>
-    </from>
-
-
+            <form action = "/genres" method = "GET">
+                <select id="genres">
+                    {% for genre in genres %}
+                        <option value = "{{  genre['name']}}" > {{ genre['name'] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Submit">
+            </form>
     </div>
+
+
+{#    LIST OF ALL ACTORS WITH PAGINATION#}
    <div class = "card">
        <label for="actors_list">List actors by selected number:</label>
-<form action = "/actors-list" method = "GET">
-<select name="range" id="actors_list">
-
-        <option value = "20" > 20 </option>
-        <option value = "50" > 50 </option>
-        <option value = "100" > 100 </option>
-
-</select>
-{#    <a href = '/{{ genre['name'] }}'>#}
+            <form action = "/actors-list" method = "GET">
+                <select name="range" id="actors_list">
+                    <option value = "20" > 20 </option>
+                    <option value = "50" > 50 </option>
+                    <option value = "100" > 100 </option>
+                </select>
     <input type="submit" value="Submit">
-        </a>
-    </form>
+            </form>
+   </div>
 
 
-    </div>
-
+    {#    ACTORS BY SELECTER NUMBER OF SHOWS#}
     <div class="card">
                 <form action="/artists/min-movies" method="get">
-<label for="artistButton">Search actors by number of movies they played</label>
-<input id="artistButton" type="number" name="min" value="0">
-<input type="submit" value="search">
-</form>
+                    <label for="artistButton">Search actors by number of movies they played</label>
+                        <input id="artistButton" type="number" name="min" value="0">
+                        <input type="submit" value="search">
+                </form>
     </div>
+
+        {# LIST OF ALL SHOWS #}
         <div class="card">
             <ul>
                 {% for show in shows %}

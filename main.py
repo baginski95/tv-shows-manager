@@ -103,7 +103,7 @@ def add_actor():
 @app.route('/<genre>')
 def get_shows_by_genre(genre=None):
     shows_by_genre = queries.get_show_by_genres(genre)
-    return render_template('artist.html')
+    return render_template('shows_by_genre.html')
 
 
 @app.route('/actors-list/<actor_range>/<page>/<sort_by>/<order>', methods=["POST", "GET"])
