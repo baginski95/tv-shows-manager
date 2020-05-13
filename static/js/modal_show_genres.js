@@ -10,7 +10,6 @@ function init_modal() {
 async function insertContentToModal(modal, contentURL) {
     let response = await fetch(contentURL);
     let json_response = await response.json();
-    console.log(json_response);
     return json_response
 }
 
@@ -20,17 +19,18 @@ async function populateModalgenres(content) {
 
     let outputContent =`<h2>Genres</h2>`;
     for (let genre of content){
-        outputContent += `<p>genre.name</p>`
+        outputContent += `<p>${genre.name}</p>`
     }
     document.getElementById('modal').insertAdjacentHTML('afterbegin', outputContent);
     return outputContent
 }
 
 function init_genre_modal() {
-    let modalLinks = document.getElementsByClassName('modalLinks');
+    let modalLinks = document.getElementsByClassName('modalLink');
     for (let link of modalLinks ) {
         link.addEventListener('click', async (e) => {
-            let contentURL = await e.target.getAttribute('href');
+            e.preventDefault();
+            let contentURL = await e.target.getAttribute('data-url');
             let outputContent = await populateModalgenres(await insertContentToModal(init_modal(), contentURL));
             let modalContainer = document.getElementById("modal-container");
             modalContainer.classList.add('show-modal');
@@ -46,4 +46,5 @@ function init_genre_modal() {
     })
 
 }
+
 init_genre_modal();

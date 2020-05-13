@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
+    <script rel="script" src="{{ url_for('static', filename='js/modal_show_genres.js') }}" defer ></script>
 
             <table class="actors_list">
                 <thead>
@@ -18,7 +19,7 @@
                 {%  for show in shows %}
 
                 <tr>
-                    <a class = "modalLink" data-show="{{ show.id }}" href="/tv-show-all/modal-genres/{{ show.id }}"> <td style="text-align: center"> {{show.title}} </td></a>
+                     <td style="text-align: center"><button class = "modalLink" data-show="{{ show.id }}" data-url="/tv-show-all/modal-genres/{{ show.id }}"> {{show.title}} </button></td>
                     <td style="text-align: center">{{show.year}}</td>
                     <td style="text-align: center">{{show.runtime}}</td>
                     <td style="text-align: center">{{show.rating}}</td>
