@@ -13,11 +13,13 @@ def index():
     return render_template('index.html', shows=shows, genres=genres)
 
 
-@app.route('/design')
-def design():
-    return render_template('design.html')
+@app.route('/tv-show-all/modal-genres')
+def get_all_shows_genre_modal():
+    shows = queries.get_all_data_from_shows()
+    return render_template('tv_show_all_genre_modal.html', shows=shows)
 
-@app.route('/tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>')
+
+app.route('/tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>')
 @app.route('/tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>')
 def most_rated_shows(page_index, order_type, order_by):
     num_of_shows = queries.get_number_of_shows()[0]['num']
@@ -26,7 +28,7 @@ def most_rated_shows(page_index, order_type, order_by):
         offset = page_index * 15
     else:
         offset = 0
-    num_of_shows = num_of_shows//15 + 1
+    num_of_shows = num_of_shows // 15 + 1
     shows = queries.get_most_rated_shows(offset, order_by, order_type)
     if not request.args.get("button"):
         if order_by == "ASC":
@@ -34,7 +36,9 @@ def most_rated_shows(page_index, order_type, order_by):
         else:
             order_by = "ASC"
 
-    return render_template('most_rated_shows.html', shows=shows, page_index=page_index, order_type=order_type, order_by=order_by, num_of_shows=num_of_shows)
+    return render_template('most_rated_shows.html', shows=shows, page_index=page_index, order_type=order_type,
+                           order_by=order_by, num_of_shows=num_of_shows)
+
 
 @app.route('/tv-show/<tv_show_id>')
 def show_given_series(tv_show_id=None):
@@ -50,6 +54,14 @@ def show_given_series(tv_show_id=None):
 
     return render_template("tv_show_details.html", show_details=show_details, seasons_details=seasons_details,
                            genres=genres, tv_show_id=tv_show_id, tv_show_name=tv_show_name)
+
+
+@app.route('/tv-show-all/modal-genres/<tv_show_id>')
+@json_response
+def get_genres_for_show(tv_show_id):
+    print('elo')
+    print(queries.get_genres_list(tv_show_id))
+    return queries.get_genres_list(tv_show_id)
 
 
 @app.route('/tv-show/modal/<tv_show_id>')
@@ -114,7 +126,7 @@ def get_shows_by_genre(genre=None):
 
 
 @app.route('/actors-list/<actor_range>/<page>/<sort_by>/<order>', methods=["POST", "GET"])
-@app.route('/actors-list/',  methods=["POST", "GET"])
+@app.route('/actors-list/', methods=["POST", "GET"])
 def show_list_with_n_actors(actor_range=None, page=1, sort_by="name", order="ASC"):
     print('im here')
     # if not actor_range:
@@ -124,7 +136,8 @@ def show_list_with_n_actors(actor_range=None, page=1, sort_by="name", order="ASC
     results = queries.get_n_sorted_actors(actor_range, page, sort_by, order)
 
     print(results)
-    return render_template('actors_list.html', results=results, actor_range=actor_range, page=page, sort_by=sort_by, order=order)
+    return render_template('actors_list.html', results=results, actor_range=actor_range, page=page, sort_by=sort_by,
+                           order=order)
 
 
 def main():

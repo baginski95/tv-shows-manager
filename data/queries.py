@@ -4,6 +4,9 @@ import psycopg2.extras
 from psycopg2 import sql
 
 
+def get_all_data_from_shows():
+    return data_manager.execute_select('SELECT * FROM shows;')
+
 
 def get_shows():
     return data_manager.execute_select('SELECT id, title FROM shows;')
