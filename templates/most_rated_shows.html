@@ -3,12 +3,15 @@
 
             <div class="col-sm">
                <div class="centre-form">
-                <form >
-                <button name="button-prev" type="submit" class="{{ 'button-prev disabled' if page == 0 else 'button-prev' }}" data-page="{{ page }}"> Previous </button>
-                    </form>
-                    <form action="/1" method="post">
-                <button name="button-next" type="submit" class="{{ 'btn btn-primary disabled' if next_page >= num_of_shows 'btn btn-primary' }}" data-api="{{ num_of_shows }}" value="{{ next_page }}"> Next </button>
-                </form>
+{#                <form >#}
+                   {% if page_index > 0 %}
+                         <a href="/tv-show/most-rated-shows/{{ page_index - 1}}/rating/{{ order_by }}?button=1" style="color: #ffffff" >
+                            <button name="button" type="submit" class="{{ 'button-prev disabled' if page == 0 else 'button-prev' }}" data-page="{{ page }}" value="1" > Previous </button>
+                         </a>
+                   {% endif %}
+                <a href="/tv-show/most-rated-shows/{{ page_index + 1}}/rating/{{ order_by }}?button=1" style="color: #ffffff" >
+                <button name="button" type="submit" class="{{ 'btn btn-primary disabled' if (page_index + 1) >= num_of_shows else 'btn btn-primary' }}" data-api="{{ num_of_shows }}" value="2" > Next </button>
+                </a>
                    </div>
             </div>
 
@@ -16,13 +19,14 @@
                 <thead>
                 <tr>
                     /tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>
-                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/title/{{ order }}" style="color: #ffffff" >title</a></th>
-                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/year/{{ order }}" style="color: #ffffff" >year</a></th>
-                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/runtime/{{ order }}" style="color: #ffffff" >runtime</a></th>
-                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/rating/{{ order }}" style="color: #ffffff" >rating</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/title/{{ order_by }}" style="color: #ffffff" >title</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/year/{{ order_by }}" style="color: #ffffff" >year</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/runtime/{{ order_by }}" style="color: #ffffff" >runtime</a></th>
+                    <th><a href="/tv-show/most-rated-shows/{{ page_index }}/rating/{{ order_by }}" style="color: #ffffff" >rating</a></th>
+                    <th>Genre</th>
                     <th>Trailer</th>
                     <th>Homepage</th>
-                    <th>Overview</th>
+                    <th>Overview</th>git checkout
                 </tr>
                 </thead>
                 <tbody>
@@ -33,6 +37,7 @@
                     <td style="text-align: center">{{show.year}}</td>
                     <td style="text-align: center">{{show.runtime}}</td>
                     <td style="text-align: center">{{show.rating}}</td>
+                    <td style="text-align: center">{{show.genre}}</td>
                     <td style="text-align: center">{{show.trailer}}</td>
                     <td style="text-align: center">{{show.homepage}}</td>
                     <td style="text-align: center">{{show.overview}}</td>

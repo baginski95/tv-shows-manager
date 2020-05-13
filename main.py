@@ -18,6 +18,7 @@ def design():
     return render_template('design.html')
 
 @app.route('/tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>')
+@app.route('/tv-show/most-rated-shows/<page_index>/<order_type>/<order_by>')
 def most_rated_shows(page_index, order_type, order_by):
     num_of_shows = queries.get_number_of_shows()[0]['num']
     page_index = int(page_index)
@@ -27,6 +28,12 @@ def most_rated_shows(page_index, order_type, order_by):
         offset = 0
     num_of_shows = num_of_shows//15 + 1
     shows = queries.get_most_rated_shows(offset, order_by, order_type)
+    if not request.args.get("button"):
+        if order_by == "ASC":
+            order_by = "DESC"
+        else:
+            order_by = "ASC"
+
     return render_template('most_rated_shows.html', shows=shows, page_index=page_index, order_type=order_type, order_by=order_by, num_of_shows=num_of_shows)
 
 @app.route('/tv-show/<tv_show_id>')

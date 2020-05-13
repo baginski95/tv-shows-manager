@@ -78,9 +78,9 @@ def get_most_rated_shows(current_offset, order_by, order_type):
     JOIN show_genres on shows.id = show_genres.show_id
     JOIN genres ON show_genres.genre_id = genres.id
     GROUP BY title, year,runtime, rating, trailer, homepage
-    ORDER BY %s %s LIMIT 15 OFFSET %s;''' % (order_by, order_type, current_offset))
+    ORDER BY %s %s LIMIT 15 OFFSET %s;''' % (order_type, order_by, current_offset))
 
 
 
 def get_number_of_shows():
-    return data_manager.execute_select("""SELECT COUNT(title) as num FROM shows""");
+    return data_manager.execute_select("""SELECT COUNT(title) as num FROM shows;""")
